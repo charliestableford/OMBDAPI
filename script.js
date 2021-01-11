@@ -9,7 +9,6 @@ const clear = document.querySelector('.clear');
 const clearnNom = document.querySelector('.clearNom');
 const smokeScreen = document.querySelector('.smokeScreen');
 const arrow = document.querySelector('.arrow');
-// const modal = document.querySelector('modal');
 
 let nomArray = [];
 // defining for local storage
@@ -43,10 +42,19 @@ const ApiHandler = async (title) => {
 
 // RENDER MOVIE RESULTS
 const renderMovies = (results) => {
+
+    let nominateBtn = document.createElement('button');
+    nominateBtn.className = 'nominate';
+    nominateBtn.className = 'hov';
+    nominateBtn.innerHTML = 'Nominate';
+    document.body.appendChild(nominateBtn);
+
+    console.log(nominateBtn);
+
         movieList.innerHTML = results.map(movie =>
         `<ul class="info">
             <li><a href="#"><img src="${movie.Poster}" alt="${movie.Title} ${movie.Type} poster" onerror="this.src='https://via.placeholder.com/200x250/0e1920.png?text=Sorry+no+image';" class="poster"></a></li>
-            <li class="details">${movie.Title} - ${movie.Year} <br><button class="nominate hov" value="${movie.imdbID}">Nominate</button></li>
+            <li class="details">${movie.Title} - ${movie.Year} <br>${nominateBtn}</li>
          </ul>`
     ).join('');
 }
@@ -57,16 +65,17 @@ const renderNom = async(movieID) => {
     .then(response => response.json())
     .then(data => {
         console.log(data.Response);
+
         data.Response ? nomArray.push(data) : console.log("fail");
         result = init();
-        result.length >= 5 ? (finished.classList.add("show"), smokeScreen.classList.add("smokeScreen"), smokeScreen.classList.add("show")) : nomArray.length >= 0 ? (total = result.length, count.innerHTML = `<span class="icon" role="img" aria-label="trophy">🏆 ${total}</span>`) : console.log("less than zerp");
+
+        result.length >= 5 ? (finished.classList.add("show"), smokeScreen.classList.add("smokeScreen"), smokeScreen.classList.add("show")) : nomArray.length >= 0 ? (total = result.length, count.innerHTML = `<span class="icon" role="img" aria-label="trophy">🏆 ${total}</span>`) : console.log("less than zero");
 
         nominationsUL.innerHTML = nomArray.map(nomSearch =>
             `<ul class="NomUL">
                 <li class="nomLi"><span class="icon" role="img" aria-label="trophy">🏆 </span>${nomSearch.Title} - ${nomSearch.Year} / ${nomSearch.imdbRating} <button class="remove hov" value="${nomSearch.imdbID}">Remove</button></li>
             </ul>`
         ).join('');
-
     })
 }
 
@@ -75,26 +84,24 @@ const nominate = (e) => {
     let movieID = e.target.getAttribute('value'); 
 
     e.target.classList.contains('nominate') ? (addToLocalstorage(movieID), e.target.disabled = true, e.target.classList.add('opacity'), renderNom(movieID)) : console.log('failed to nominate');
-
 }
 
 // REMOVE NOMINATION 
-function removal(e){
-    if(e.target.classList.contains('remove')){
-        e.target.parentNode.classList.add('shift');
-        let movieID = e.target.getAttribute('value'); 
-        removeLocal(movieID);
-         console.log(counter--);
-        //  res = init();
-        count.innerHTML = `<span class="icon" role="img" aria-label="trophy">🏆 ${result.length}</span>`;
-        //disable button + opacity.
-        e.target.disabled = true;
-        e.target.classList.add('opacity');
+const removal = (e) => {
+    let movieID = e.target.getAttribute('value');
+    let index = nomArray.findIndex(nomArray => nomArray.imdbID === `${movieID}`);
+    console.log(e.target);
+    console.log(index);
+    console.log(nomArray);
+    console.log(e.target.value);
+;    
+    e.target.classList.contains('remove') ? (e.target.parentNode.classList.add('shift'), removeLocal(movieID), count.innerHTML = `<span class="icon" role="img" aria-label="trophy">🏆 ${result.length}</span>`, nomArray.splice(index, 1), index = nomArray.findIndex(nomArray => nomArray.imdbID === `${movieID}`)) : console.log('failed to remove');
 
-        const index = nomArray.findIndex(nomArray => nomArray.imdbID === `${movieID}`);
-        console.log(`this is ${index}`);
-        nomArray.splice(index, 1);
-    }
+    // if(e.target.getAttribute(value) === {
+
+    // })
+    //match value and enable button
+    // nomArray.find();
 }
 
 //LOCALSTORAGE
@@ -162,8 +169,9 @@ Element.prototype.isOverflowing = function(){
  
 document.addEventListener('DOMContentLoaded', checkLocalStorage);
 document.addEventListener('DOMContentLoaded', ApiHandler(title));
-window.addEventListener('click', removal);
-window.addEventListener('click', nominate);
+// nominateBtn.addEventListener('click', nominate);
+// window.addEventListener('click', nominate);
+// nominateBtn.addEventListener('click', nominate);
 searchUpdate.addEventListener('keyup', searchInputHandler);
 searchBtn.addEventListener('click', searchInputHandler);
 clearnNom.addEventListener('click', clearLocalStorage);
