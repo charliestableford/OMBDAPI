@@ -16,34 +16,29 @@ let nomArray = [];
 let nomItem;
 let counter = 0;
 
+// API CREDENTIALS
 const key = `406fb5b1`;
 const title = `net`;
     
 // INPUT SEARCH HANDLER
-function searchInputHandler(e) {
+const searchInputHandler = (e) => {
     e.preventDefault();
     const inputSearch = searchUpdate.value;
     ApiHandler(inputSearch);
 }
 
 // API CALL
-async function ApiHandler(title) {
+const ApiHandler = async (title) => {
     const response = await fetch(`https://www.omdbapi.com/?apikey=${key}&s=${title}`);
     const searching = await response.json();
-    if (searching.Response === "True") {
-        console.log(searching.Search);
-        renderMovies(searching.Search);
-    } else {
-        movieList.innerHTML = `
-        <div class="noTitle">
-        sorry we have nothing by that name!
-        </div>`;
-    }
+    searching.Response ? renderMovies(searching.Search) : movieList.innerHTML = `<div class="noTitle">
+    sorry we have nothing by that name!
+    </div>`;
 }
 
 // RENDER MOVIE RESULTS
-function renderMovies(results) {
-    movieList.innerHTML = results.map(movie =>
+const renderMovies = (results) => {
+        movieList.innerHTML = results.map(movie =>
         `<ul class="info">
             <li><a href="#"><img src="${movie.Poster}" alt="${movie.Title} ${movie.Type} poster" onerror="this.src='https://via.placeholder.com/200x250/0e1920.png?text=Sorry+no+image';" class="poster"></a></li>
             <li class="details">${movie.Title} - ${movie.Year} <br><button class="nominate hov" value="${movie.imdbID}">Nominate</button></li>
