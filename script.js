@@ -27,13 +27,18 @@ const searchInputHandler = (e) => {
     ApiHandler(inputSearch);
 }
 
-// API CALL
+// INITAL API CALL
 const ApiHandler = async (title) => {
-    const response = await fetch(`https://www.omdbapi.com/?apikey=${key}&s=${title}`);
-    const searching = await response.json();
-    searching.Response ? renderMovies(searching.Search) : movieList.innerHTML = `<div class="noTitle">
-    sorry we have nothing by that name!
-    </div>`;
+    const response = await fetch(`https://www.omdbapi.com/?apikey=${key}&s=${title}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        
+        // if response true return search
+        data.Response ? renderMovies(data.Search) : movieList.innerHTML = `<div class="noTitle">
+        sorry we have nothing by that name!
+        </div>`;
+    })
 }
 
 // RENDER MOVIE RESULTS
@@ -47,46 +52,30 @@ const renderMovies = (results) => {
 }
 
 // RENDER NOMINATIONS LIST
-    async function renderNom(movieID){ 
-        // make another call based on the movie id stored
-        const response = await fetch(`https://www.omdbapi.com/?apikey=${key}&i=${movieID}`);
-        const nomSearch = await response.json();
-        if (nomSearch.Response === "True") {
-        // add the search result to the nomArray  
-        nomArray.push(nomSearch);
-        res = init();
-        //check each click, if there are more then 5 nominations then show banner
-        if(res.length >= 5 ){
-            finished.classList.add("show");
-            smokeScreen.classList.add("smokeScreen");
-            smokeScreen.classList.add("show");
-
-        }
-        //start counter when the nomArray is larger than one
-        if(nomArray.length >= 0 ){
-           total = res.length;
-            console.log(counter++);
-            count.innerHTML = `<span class="icon" role="img" aria-label="trophy">🏆 ${total}</span>`;
-        }
+const renderNom = async(movieID) => {
+    const response = await fetch(`https://www.omdbapi.com/?apikey=${key}&i=${movieID}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.Response);
+        data.Response ? nomArray.push(data) : console.log("fail");
+        result = init();
+        result.length >= 5 ? (finished.classList.add("show"), smokeScreen.classList.add("smokeScreen"), smokeScreen.classList.add("show")) : nomArray.length >= 0 ? (total = result.length, count.innerHTML = `<span class="icon" role="img" aria-label="trophy">🏆 ${total}</span>`) : console.log("less than zerp");
 
         nominationsUL.innerHTML = nomArray.map(nomSearch =>
             `<ul class="NomUL">
                 <li class="nomLi"><span class="icon" role="img" aria-label="trophy">🏆 </span>${nomSearch.Title} - ${nomSearch.Year} / ${nomSearch.imdbRating} <button class="remove hov" value="${nomSearch.imdbID}">Remove</button></li>
             </ul>`
         ).join('');
-    }
- }
+
+    })
+}
 
  // NOMINATE 
-function nominate(e) {
-    if (e.target.classList.contains('nominate')) {
-       let movieID = e.target.getAttribute('value'); 
-       addToLocalstorage(movieID)
-        // getting the movie ID - which is the imbd id
-        e.target.disabled = true;
-        e.target.classList.add('opacity');
-        renderNom(movieID);
-    }
+const nominate = (e) => {
+    let movieID = e.target.getAttribute('value'); 
+
+    e.target.classList.contains('nominate') ? (addToLocalstorage(movieID), e.target.disabled = true, e.target.classList.add('opacity'), renderNom(movieID)) : console.log('failed to nominate');
+
 }
 
 // REMOVE NOMINATION 
@@ -97,7 +86,7 @@ function removal(e){
         removeLocal(movieID);
          console.log(counter--);
         //  res = init();
-        count.innerHTML = `<span class="icon" role="img" aria-label="trophy">🏆 ${res.length}</span>`;
+        count.innerHTML = `<span class="icon" role="img" aria-label="trophy">🏆 ${result.length}</span>`;
         //disable button + opacity.
         e.target.disabled = true;
         e.target.classList.add('opacity');
