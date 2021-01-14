@@ -46,8 +46,9 @@ const renderMovies = (results) => {
         // returns false as the typing updates.
         movieList.innerHTML = results.map(movie =>
         `<ul class="info">
+        <li class="details">${movie.Title} - ${movie.Year} <br><button class="nominate hov" value="${movie.imdbID}">Nominate</button></li>
             <li><a href="#"><img src="${movie.Poster}" alt="${movie.Title} ${movie.Type} poster" onerror="this.src='https://via.placeholder.com/200x250/0e1920.png?text=Sorry+no+image';" class="poster"></a></li>
-            <li class="details">${movie.Title} - ${movie.Year} <br><button class="nominate hov" value="${movie.imdbID}">Nominate</button></li>
+            
          </ul>`
     ).join('');
 }
@@ -100,7 +101,7 @@ const clearLocalStorage = () => {
     localStorage.clear('nomination');
     location.reload();
 }
- 
+
 function init() {
     // if there is nothing in the storage, start new array
    if(localStorage.getItem('nominated') === null) {
@@ -113,9 +114,8 @@ return nomItem;
 }
 
 // REMOVING SINGLE FROM LOCAL
-function removeLocal(movieID) {
-    // nomItem = init();
-    nomItem.forEach((movie, index) => {
+const removeLocal = () => {
+        nomItem.forEach((movie, index) => {
         if (movie === movieID) {
             nomItem.splice(index, 1);
         }
@@ -124,12 +124,13 @@ function removeLocal(movieID) {
 }
 
 // ADDING SINGLE TO LOCAL
-function addToLocalstorage(movieID) {
-    nomItem = init();
+const addToLocalstorage = (movieID) => {
+        nomItem = init();
     nomItem.push(movieID);
     // use json.stringify to save into local storage
     localStorage.setItem('nominated', JSON.stringify(nomItem));
 }
+
 
 Element.prototype.isOverflowing = function(){
     return this.scrollWidth > this.clientWidth;
