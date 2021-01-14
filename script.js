@@ -10,6 +10,7 @@ const clearnNom = document.querySelector('.clearNom');
 const smokeScreen = document.querySelector('.smokeScreen');
 const arrow = document.querySelector('.arrow');
 
+
 let nomArray = [];
 // defining for local storage
 let nomItem;
@@ -42,19 +43,11 @@ const ApiHandler = async (title) => {
 
 // RENDER MOVIE RESULTS
 const renderMovies = (results) => {
-
-    let nominateBtn = document.createElement('button');
-    nominateBtn.className = 'nominate';
-    nominateBtn.className = 'hov';
-    nominateBtn.innerHTML = 'Nominate';
-    document.body.appendChild(nominateBtn);
-
-    console.log(nominateBtn);
-
+        // returns false as the typing updates.
         movieList.innerHTML = results.map(movie =>
         `<ul class="info">
             <li><a href="#"><img src="${movie.Poster}" alt="${movie.Title} ${movie.Type} poster" onerror="this.src='https://via.placeholder.com/200x250/0e1920.png?text=Sorry+no+image';" class="poster"></a></li>
-            <li class="details">${movie.Title} - ${movie.Year} <br>${nominateBtn}</li>
+            <li class="details">${movie.Title} - ${movie.Year} <br><button class="nominate hov" value="${movie.imdbID}">Nominate</button></li>
          </ul>`
     ).join('');
 }
@@ -82,7 +75,7 @@ const renderNom = async(movieID) => {
  // NOMINATE 
 const nominate = (e) => {
     let movieID = e.target.getAttribute('value'); 
-
+    // console.log("failed to nominate when clicked remove")
     e.target.classList.contains('nominate') ? (addToLocalstorage(movieID), e.target.disabled = true, e.target.classList.add('opacity'), renderNom(movieID)) : console.log('failed to nominate');
 }
 
@@ -90,56 +83,32 @@ const nominate = (e) => {
 const removal = (e) => {
     let movieID = e.target.getAttribute('value');
     let index = nomArray.findIndex(nomArray => nomArray.imdbID === `${movieID}`);
-    console.log(e.target);
-    console.log(index);
-    console.log(nomArray);
-    console.log(e.target.value);
-;    
+    // console.log("failed to remove when clicked nominate")
     e.target.classList.contains('remove') ? (e.target.parentNode.classList.add('shift'), removeLocal(movieID), count.innerHTML = `<span class="icon" role="img" aria-label="trophy">🏆 ${result.length}</span>`, nomArray.splice(index, 1), index = nomArray.findIndex(nomArray => nomArray.imdbID === `${movieID}`)) : console.log('failed to remove');
-
-    // if(e.target.getAttribute(value) === {
-
-    // })
-    //match value and enable button
-    // nomArray.find();
 }
 
 //LOCALSTORAGE
-function checkLocalStorage() {
-    let res;
+const checkLocalStorage = () => {
+       let res;
     res = init();
-    if (res.length === 0) {
-        console.log('nothing stored');
-    } else {
-        
-        if(res.length >= 5){
-            finished.classList.add("show");
-            smokeScreen.classList.add("smokeScreen");
-            smokeScreen.classList.add("show");
-            // trans.classList.add("trans");
-            // clear.innerHTML = `You're back! Want to change your nominations?`
-        }
-        console.log(counter++);
-        total = res.length;
-        count.innerHTML =  `<span class="icon" role="img" aria-label="trophy">🏆 ${total}</span>`;
-    }
+ 
+    res.length === 0 ? console.log("nothing stored") : res.length >= 5 ? (finished.classList.add("show"), smokeScreen.classList.add("smokeScreen"), smokeScreen.classList.add("show")) : (console.log(counter++), total = res.length, count.innerHTML =  `<span class="icon" role="img" aria-label="trophy">🏆 ${total}</span>`);
 }
 
 // CLEAR LOCAL SO USER CAN NOMINATE AGAIN
-function clearLocalStorage(){
+const clearLocalStorage = () => {
     localStorage.clear('nomination');
     location.reload();
 }
-
+ 
 function init() {
     // if there is nothing in the storage, start new array
    if(localStorage.getItem('nominated') === null) {
     nomItem = [];
    } else {
     // use parse for json.parse to make it back into an array
-    nomItem = JSON.parse(localStorage.getItem('nominated'));
-       
-}
+    nomItem = JSON.parse(localStorage.getItem('nominated')); 
+    }       
 return nomItem;
 }
 
@@ -169,9 +138,8 @@ Element.prototype.isOverflowing = function(){
  
 document.addEventListener('DOMContentLoaded', checkLocalStorage);
 document.addEventListener('DOMContentLoaded', ApiHandler(title));
-// nominateBtn.addEventListener('click', nominate);
-// window.addEventListener('click', nominate);
-// nominateBtn.addEventListener('click', nominate);
+window.addEventListener('click', removal);
+window.addEventListener('click', nominate);
 searchUpdate.addEventListener('keyup', searchInputHandler);
 searchBtn.addEventListener('click', searchInputHandler);
 clearnNom.addEventListener('click', clearLocalStorage);
