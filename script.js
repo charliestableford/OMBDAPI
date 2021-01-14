@@ -63,6 +63,8 @@ const renderNom = async(movieID) => {
         data.Response ? nomArray.push(data) : console.log("fail");
         result = init();
 
+        result.length === 5 ? (count.innerHTML = `<span class="icon" role="img" aria-label="trophy">🏆 5</span>`) : console.log("less than zero");
+
         result.length >= 5 ? (finished.classList.add("show"), smokeScreen.classList.add("smokeScreen"), smokeScreen.classList.add("show")) : nomArray.length >= 0 ? (total = result.length, count.innerHTML = `<span class="icon" role="img" aria-label="trophy">🏆 ${total}</span>`) : console.log("less than zero");
 
         nominationsUL.innerHTML = nomArray.map(nomSearch =>
@@ -125,18 +127,36 @@ const removeLocal = () => {
 
 // ADDING SINGLE TO LOCAL
 const addToLocalstorage = (movieID) => {
-        nomItem = init();
+    nomItem = init();
     nomItem.push(movieID);
     // use json.stringify to save into local storage
     localStorage.setItem('nominated', JSON.stringify(nomItem));
 }
 
+const getLocalOnRefresh = () => {
+    nomItem = init();
+
+    if(localStorage.getItem('nominated')) {
+        const retrieve = localStorage.getItem('nominated', JSON.stringify(nomItem));
+        console.log(retrieve);
+       } else{
+           console.log("no items in the array");
+       }
+    }
 
 Element.prototype.isOverflowing = function(){
     return this.scrollWidth > this.clientWidth;
    
 }
- 
+
+const stripes = () => {
+    const stripes = document.querySelector('.stripes');
+    const li = document.createElement('li');
+    document.body.appendChild(stripes);
+}
+
+document.addEventListener('DOMContentLoaded', stripes);
+document.addEventListener('DOMContentLoaded', getLocalOnRefresh);
 document.addEventListener('DOMContentLoaded', checkLocalStorage);
 document.addEventListener('DOMContentLoaded', ApiHandler(title));
 window.addEventListener('click', removal);
