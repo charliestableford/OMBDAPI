@@ -124,6 +124,12 @@
     margin: 0px;
   }
 
+  .highlight{
+    font-size: 1.5em;
+    font-weight: 300;
+    color: darkslategray;
+  }
+
   .block{
     height: 250px;
     width: 40px;
