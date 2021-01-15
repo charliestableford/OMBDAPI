@@ -40,10 +40,6 @@
     background: floralwhite;
   }
   
-  .wrapper .nomContainer {
-    position: fixed;
-  }
-  
   .wrapper .searchBtn {
     font-size: 1em;
     background: indianred;
@@ -81,14 +77,15 @@
   
   .wrapper .count {
     position: fixed;
-    right: 5%;
-    top: 1%;
+    right: 1%;
+    bottom: 1%;
   }
   
   .wrapper .poster {
     min-width: 150px;
     max-width: 150px;
-    border-radius: 10px;
+    height: 200px;
+    /* border-radius: 10px; */
     box-shadow: 10px 10px 20px 2px rgba(0, 0, 0, 0.14);
     transition: transform .2s ease-in-out;
   }
@@ -209,7 +206,7 @@
   
   .wrapper .innerTxt {
     text-align: center;
-    margin-top: 100px;
+    margin-top: 50px;
   }
   
   .wrapper .count {
@@ -265,6 +262,7 @@
 
     #submit > .searchBtn {
       font-size: 17px;
+      margin-top: 20px;
     }
     .wrapper .remove {
       position: relative;

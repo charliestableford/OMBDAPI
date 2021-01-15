@@ -72,6 +72,7 @@ const renderNom = async(movieID) => {
                 <li class="nomLi"><span class="icon" role="img" aria-label="trophy">🏆 </span>${nomSearch.Title} - ${nomSearch.Year} / ${nomSearch.imdbRating} <button class="remove hov" value="${nomSearch.imdbID}">Remove</button></li>
             </ul>`
         ).join('');
+
     })
 }
 
@@ -84,9 +85,12 @@ const nominate = (e) => {
 
 // REMOVE NOMINATION 
 const removal = (e) => {
+
     let movieID = e.target.getAttribute('value');
+
     let index = nomArray.findIndex(nomArray => nomArray.imdbID === `${movieID}`);
-    // console.log("failed to remove when clicked nominate")
+    console.log(index);
+
     e.target.classList.contains('remove') ? (e.target.parentNode.classList.add('shift'), removeLocal(movieID), count.innerHTML = `<span class="icon" role="img" aria-label="trophy">🏆 ${result.length}</span>`, nomArray.splice(index, 1), index = nomArray.findIndex(nomArray => nomArray.imdbID === `${movieID}`)) : console.log('failed to remove');
 }
 
@@ -116,8 +120,9 @@ return nomItem;
 }
 
 // REMOVING SINGLE FROM LOCAL
-const removeLocal = () => {
-        nomItem.forEach((movie, index) => {
+function removeLocal(movieID) {
+    // nomItem = init();
+    nomItem.forEach((movie, index) => {
         if (movie === movieID) {
             nomItem.splice(index, 1);
         }
@@ -133,30 +138,11 @@ const addToLocalstorage = (movieID) => {
     localStorage.setItem('nominated', JSON.stringify(nomItem));
 }
 
-const getLocalOnRefresh = () => {
-    nomItem = init();
-
-    if(localStorage.getItem('nominated')) {
-        const retrieve = localStorage.getItem('nominated', JSON.stringify(nomItem));
-        console.log(retrieve);
-       } else{
-           console.log("no items in the array");
-       }
-    }
-
 Element.prototype.isOverflowing = function(){
     return this.scrollWidth > this.clientWidth;
    
 }
 
-const stripes = () => {
-    const stripes = document.querySelector('.stripes');
-    const li = document.createElement('li');
-    document.body.appendChild(stripes);
-}
-
-document.addEventListener('DOMContentLoaded', stripes);
-document.addEventListener('DOMContentLoaded', getLocalOnRefresh);
 document.addEventListener('DOMContentLoaded', checkLocalStorage);
 document.addEventListener('DOMContentLoaded', ApiHandler(title));
 window.addEventListener('click', removal);
