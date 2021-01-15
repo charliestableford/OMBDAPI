@@ -29,16 +29,28 @@ const searchInputHandler = (e) => {
 
 // INITAL API CALL
 const ApiHandler = async (title) => {
-    const response = await fetch(`https://www.omdbapi.com/?apikey=${key}&s=${title}`)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        
-        // if response true return search
-        data.Response ? renderMovies(data.Search) : movieList.innerHTML = `<div class="noTitle">
+
+    const response = await fetch(`https://www.omdbapi.com/?apikey=${key}&s=${title}`);
+    const searching = await response.json();
+    if (searching.Response === "True") {
+        console.log(searching.Search);
+        renderMovies(searching.Search);
+    } else {
+        movieList.innerHTML = `
+        <div class="noTitle">
         sorry we have nothing by that name!
         </div>`;
-    })
+    }
+    // const response = await fetch(`https://www.omdbapi.com/?apikey=${key}&s=${title}`)
+    // .then(response => response.json())
+    // .then(data => {
+    //     console.log(data);
+        
+    //     // if response true return search
+    //     data.Response ? renderMovies(data.Search) : movieList.innerHTML = `<div class="noTitle">
+    //     sorry we have nothing by that name!
+    //     </div>`;
+    // })
 }
 
 // RENDER MOVIE RESULTS
@@ -80,7 +92,7 @@ const renderNom = async(movieID) => {
 const nominate = (e) => {
     let movieID = e.target.getAttribute('value'); 
     // console.log("failed to nominate when clicked remove")
-    e.target.classList.contains('nominate') ? (addToLocalstorage(movieID), e.target.disabled = true, e.target.classList.add('opacity'), renderNom(movieID)) : console.log('failed to nominate');
+    e.target.classList.contains('nominate') ? (addToLocalstorage(movieID), e.target.disabled = true, e.target.classList.add('opacity'), renderNom(movieID)) : console.log('window click');
 }
 
 // REMOVE NOMINATION 

@@ -40,6 +40,10 @@
     background: floralwhite;
   }
   
+  .wrapper .nomContainer {
+    position: fixed;
+  }
+  
   .wrapper .searchBtn {
     font-size: 1em;
     background: indianred;
@@ -262,7 +266,6 @@
 
     #submit > .searchBtn {
       font-size: 17px;
-      margin-top: 20px;
     }
     .wrapper .remove {
       position: relative;
