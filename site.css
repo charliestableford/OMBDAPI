@@ -24,6 +24,7 @@
     background: whitesmoke;
     flex-direction: row;
     z-index: 1;
+    padding-top: 450px;
   }
   
   .wrapper .info {
@@ -35,9 +36,12 @@
   
   .wrapper .nominations {
     width: 100%;
-    height: 300px;
+    height: 400px;
     overflow-x: hidden;
     background: floralwhite;
+    z-index: 2;
+    position: fixed;
+    padding-top: 150px;
   }
   
   .wrapper .nomContainer {
@@ -51,7 +55,7 @@
     font-weight: 2700;
     border-radius: 4px;
     padding: 5px 20px 5px 20px;
-    box-shadow: 10px 10px 21px -5px rgba(0,0,0,0.15);
+    box-shadow: 5px 5px 5px -5px rgba(0,0,0,0.15);
   }
   
   .wrapper .smokeScreen {
@@ -108,6 +112,10 @@
 
   .intro{
     background: floralwhite;
+    position: fixed;
+    z-index: 3;
+    margin-top: 60px;
+    margin-left: 25%;
   }
 
   .intro > p{
@@ -160,10 +168,12 @@
   .wrapper #submit {
     text-align: center;
     padding-bottom: 1%;
-    padding-top: 1%;
+    padding-top: 2%;
     margin: 0px;
     background: floralwhite;
     width: 100%;
+    z-index: 3;
+    position: fixed;
   }
   
   .wrapper .remove {
@@ -246,8 +256,8 @@
     font-size: 1em;
   }
 
-  .nomUL{
-    margin: 0px;
+  ul{
+    margin: 0px !important;
   }
 
   #Layer_1{
@@ -255,6 +265,12 @@
     position: absolute;
     top: 360px;
     opacity: 60%;
+  }
+
+  .footer > p{
+    background: whitesmoke;
+    margin: 0;
+    padding-bottom: 20px;
   }
 
   @media (max-width: 614px) {
@@ -278,6 +294,356 @@
       z-index: 2;
     }
 
+    #submit > .searchBtn {
+      font-size: 17px;
+    }
+    .wrapper .remove {
+      position: relative;
+      float: left;
+      margin-left: -120px;
+      margin-top: 30px;
+    }
+    li {
+      font-size: 17px;
+    }
+    .NomUL {
+      margin-top: 20px;
+      padding-left: 10px;
+    }
+
+    .intro{
+      margin-left: 25%;
+    }
+
+    .intro>h2{
+      font-size: 1.2em;
+    }
+
+    .wrapper .remove {
+      position: absolute;
+      right: -100px;
+      margin-left: 10px;
+    }
+    
+    .wrapper .nominate, .wrapper .remove {
+      background: indianred;
+      padding: 5px 15px 5px 15px;
+      border-radius: 4px;
+      color: white;
+      margin-top: 10px;
+      align-self: flex-end;
+    }
+
+    .wrapper .info{
+      height: 220px;
+      padding-right: 20px;
+    }
+
+  }
+
+/* * {
+  font-family: 'Roboto', sans-serif;
+  font-weight: lighter;
+    box-sizing: border-box;
+  }
+
+  body{
+    margin: 0px;
+  }
+
+  .wrapper{
+    margin: 0px;
+    position: relative;
+    z-index: -5;
+  }
+  
+  .wrapper .flexWrap {
+    display: flex;
+    flex-wrap: wrap;
+    z-index: -10;
+    position: relative;
+  }
+  
+  .wrapper .movieInfo {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    background: whitesmoke;
+    flex-direction: row;
+    z-index: -1;
+    margin-top: 300px;
+  }
+  
+  .wrapper .info {
+    justify-content: space-between;
+    height: 300px;
+    z-index: 3;
+    position: relative;
+  }
+  
+  .wrapper .nominations {
+    width: 100%;
+    height: 300px;
+    overflow-x: hidden;
+    background: floralwhite;
+    z-index: 2;
+    position: fixed;
+  }
+
+  ul> li> button > .nominate{
+        position: relative;
+    z-index: 2;
+  }
+  
+  .wrapper .nomContainer {
+    position: fixed;
+  }
+  
+  .wrapper .searchBtn {
+    font-size: 1em;
+    background: indianred;
+    color: white;
+    font-weight: 2700;
+    border-radius: 4px;
+    padding: 5px 20px 5px 20px;
+    box-shadow: 10px 10px 21px -5px rgba(0,0,0,0.15);
+  }
+  
+  .wrapper .smokeScreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: white;
+    opacity: .5;
+    height: 200vh;
+    width: 100%;
+    z-index: 2;
+    display: none;
+  }
+  
+  .wrapper li {
+    list-style: none;
+    justify-content: space-between;
+  }
+  
+  .wrapper .hide {
+    display: none;
+  }
+  
+  .wrapper .show {
+    display: block;
+  }
+  
+  .wrapper .count {
+    position: fixed;
+    right: 1%;
+    top: 1%;
+  }
+  
+  .wrapper .poster {
+    min-width: 150px;
+    max-width: 150px;
+    height: 200px;
+    box-shadow: 10px 10px 20px 2px rgba(0, 0, 0, 0.14);
+    transition: transform .2s ease-in-out;
+  }
+  
+  .wrapper .poster:hover {
+    transform: scale(1.05);
+  }
+  
+  .wrapper .searchUpdate {
+    width: 35%;
+    height: 30px;
+    border-radius: 4px;
+    border: 1px solid slategray;
+    padding: 10px;
+  }
+
+  .intro{
+    background: floralwhite;
+    position: fixed;
+    z-index: 3;
+    margin-top: 50px;
+    margin-left: 30%;
+  }
+
+  .intro > p{
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0px;
+    padding-top: 10px;
+  }
+
+  .intro > h2{
+    text-align: center;
+    color: darkslategray;
+    font-weight: 400px;
+    font-size: 3em;
+    margin: 0px;
+  }
+
+  .highlight{
+    font-size: 1.5em;
+    font-weight: 300;
+    color: darkslategray;
+  }
+
+  .block{
+    height: 250px;
+    width: 40px;
+    background: whitesmoke;
+    opacity: .5;
+    z-index: 1;
+    position: absolute;
+    top: 200px;
+    right: 50px;
+  }
+  
+  .wrapper button {
+    background: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .wrapper .opacity {
+    opacity: .5;
+  }
+  
+  .wrapper .icon {
+    font-size: 30px;
+  }
+  
+  .wrapper #submit {
+    text-align: center;
+    padding-bottom: 1%;
+    padding-top: 1%;
+    margin: 0px;
+    background: floralwhite;
+    width: 100%;
+    position: fixed;
+    z-index: 3;
+  }
+  
+  .wrapper .remove {
+    position: absolute;
+    right: -100px;
+  }
+
+  .nominate{
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+  
+  .wrapper .nominate, .wrapper .remove {
+    background: indianred;
+    padding: 5px 15px 5px 15px;
+    border-radius: 4px;
+    color: white;
+    margin-top: 10px;
+    align-self: flex-end;
+    z-index: 20;
+    cursor: pointer;
+  }
+  
+  .wrapper .hov {
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .wrapper .hov:hover {
+    transform: translate(0, -5px);
+  }
+  
+  .wrapper .banner {
+    background: white;
+    box-shadow: -8px 10px 37px -1px rgba(0, 0, 0, 0.49);
+    height: 300px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 0;
+    border-radius: 50px 50px 0px 0px;
+    transition: 1s;
+    z-index: 2;
+  }
+  
+  .wrapper .innerTxt {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .wrapper .count {
+    font-size: 25px;
+    z-index: 5;
+  }
+  
+  .wrapper .noTitle {
+    padding: 15%;
+  }
+  
+  .wrapper .footer {
+    text-align: center;
+    z-index: 10;
+  }
+  
+  .wrapper .nomLi {
+    transition: 1s;
+  }
+  
+  .wrapper .shift {
+    transform: translate(2000px);
+  }
+  
+  .wrapper .clearNom {
+    background: indianred;
+    color: white;
+    padding: 10px 20px 10px 20px;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 200;
+    font-size: 1em;
+  }
+
+  .nomUL{
+    margin: 0px;
+  }
+
+  #Layer_1{
+    width: 50%;
+    position: absolute;
+    top: 360px;
+    opacity: 60%;
+  }
+
+  .footer > p{
+    background: whitesmoke;
+    margin: 0;
+    padding-bottom: 20px;
+  }
+
+  @media (max-width: 614px) {
+    .wrapper .count {
+      position: fixed;
+      right: 1%;
+      top: 6%;
+    }
+  }
+  
+  @media (max-width: 414px) {
+    .poster {
+      min-width: 100px;
+      max-width: 100px;
+    }
+    .info {
+      display: flex;
+      margin: 0px;
+      z-index: 2;
+    }
+
 
     #submit > .searchBtn {
       font-size: 17px;
@@ -294,4 +660,4 @@
     .NomUL {
       margin-top: 20px;
     }
-  }
+  } */

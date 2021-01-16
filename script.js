@@ -18,7 +18,7 @@ let counter = 0;
 
 // API CREDENTIALS
 const key = `406fb5b1`;
-const title = `net`;
+const title = `design`;
     
 // INPUT SEARCH HANDLER
 const searchInputHandler = (e) => {
