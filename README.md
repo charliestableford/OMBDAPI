@@ -14,4 +14,4 @@ The hosting for this website is piggy-backing off of my portfolio and is done th
 
 ## Screenshot 📷
 
-<img src="assets/screen.png" alt="Screenshot"/>
+<img src="assets/Screenshot.png" alt="Screenshot"/>
