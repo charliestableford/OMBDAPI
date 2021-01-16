@@ -255,7 +255,6 @@
     position: absolute;
     top: 360px;
     opacity: 60%;
-    z-index: 1;
   }
 
   @media (max-width: 614px) {
