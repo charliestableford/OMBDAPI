@@ -50,7 +50,7 @@
     color: white;
     font-weight: 2700;
     border-radius: 4px;
-    padding: 4px 20px 4px 20px;
+    padding: 5px 20px 5px 20px;
     box-shadow: 10px 10px 21px -5px rgba(0,0,0,0.15);
   }
   
@@ -82,7 +82,7 @@
   .wrapper .count {
     position: fixed;
     right: 1%;
-    bottom: 1%;
+    top: 1%;
   }
   
   .wrapper .poster {
@@ -99,7 +99,7 @@
   }
   
   .wrapper .searchUpdate {
-    width: 65%;
+    width: 35%;
     height: 30px;
     border-radius: 4px;
     border: 1px solid slategray;
@@ -248,6 +248,22 @@
 
   .nomUL{
     margin: 0px;
+  }
+
+  #Layer_1{
+    width: 50%;
+    position: absolute;
+    top: 360px;
+    opacity: 60%;
+    z-index: 1;
+  }
+
+  @media (max-width: 614px) {
+    .wrapper .count {
+      position: fixed;
+      right: 1%;
+      top: 6%;
+    }
   }
   
   @media (max-width: 414px) {
