@@ -42,6 +42,7 @@
     z-index: 2;
     position: fixed;
     padding-top: 150px;
+    overflow-y: hidden;
   }
   
   .wrapper .nomContainer {
@@ -304,7 +305,7 @@
       margin-top: 30px;
     }
     li {
-      font-size: 17px;
+      font-size: 14px;
     }
     .NomUL {
       margin-top: 20px;
